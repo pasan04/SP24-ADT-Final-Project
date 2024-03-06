@@ -10,3 +10,8 @@ To run the project
 ```
 python manage.py runserver
 ```
+
+or you can run the project from here.
+```
+python manage.py runserver 8809
+```
