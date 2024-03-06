@@ -3,7 +3,7 @@
 
 To activate the virtual environment
 ```
-/Users/pkamburu/SP24-ADT-Final-Project/env/bin/activate
+source /Users/pkamburu/SP24-ADT-Final-Project/env/bin/activate
 ```
 
 To run the project
