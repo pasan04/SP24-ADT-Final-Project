@@ -7,5 +7,6 @@ To activate the virtual environment
 ```
 
 To run the project
+```
 python manage.py runserver
 ```
