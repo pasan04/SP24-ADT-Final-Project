@@ -15,3 +15,8 @@ or you can run the project from here.
 ```
 python manage.py runserver 8809
 ```
+If you create a new app, please add it in the INSTALLED_APPS=[ ],
+like this, 
+```
+project_name
+```
