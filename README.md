@@ -34,4 +34,7 @@ Run 'python manage.py migrate' to apply them.
 python manage.py migrate
 ```
 It's not handle the URL redirection yet. So need to specify which url you are reffering first. 
+```
+http://localhost:8813/project/hello/
+```
 
