@@ -49,5 +49,11 @@ After creating the model, you have to do the migrations.
 python manage.py makemigrations
 ```
 
+To migrate the file we created...
+```
+python manage.py migrate
+```
+
+
 
 
