@@ -37,4 +37,8 @@ It's not handle the URL redirection yet. So need to specify which url you are re
 ```
 http://localhost:8813/project/hello/
 ```
+Username and password for the admin.
+admin -> pasan123@
+
+
 
