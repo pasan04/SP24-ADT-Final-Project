@@ -44,5 +44,10 @@ admin -> pasan123@
 http://127.0.0.1:8813/admin/login/?next=/admin/
 ```
 
+After creating the model, you have to do the migrations.
+```
+python manage.py makemigrations
+```
+
 
 
