@@ -40,5 +40,9 @@ http://localhost:8813/project/hello/
 Username and password for the admin.
 admin -> pasan123@
 
+```
+http://127.0.0.1:8813/admin/login/?next=/admin/
+```
+
 
 
