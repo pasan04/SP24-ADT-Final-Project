@@ -58,6 +58,10 @@ python manage.py migrate
 python manage.py makemigrations project --empty
 ```
 
+```
+https://pasanstudentmanagementsystem-60d660f9f26d.herokuapp.com/ | https://git.heroku.com/pasanstudentmanagementsystem.git
+```
+
 
 
 
