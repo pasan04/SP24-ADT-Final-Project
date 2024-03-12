@@ -54,6 +54,11 @@ To migrate the file we created...
 python manage.py migrate
 ```
 
+```
+python manage.py makemigrations project --empty
+```
+
+
 
 
 
