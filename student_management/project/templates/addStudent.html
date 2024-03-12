@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Show Page</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-4">
+    <h1>Add Students</h1>
+    <hr>
+    <div class="card my-3">
+        <div class="card-body">
+            {% if messages %}
+                {% for msg in messages %}
+                    <p class="text-success">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+            <form method="post" action="/students/add/">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            <input type="text" name = "email" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td>
+                            <input type="number" name="age" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Grade</th>
+                        <td>
+                            <input type="number" name="grade" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
