@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Show Page</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-4">
+    <h1>Add Mark</h1>
+    <hr>
+    <div class="card my-3">
+        <div class="card-body">
+            {% if messages %}
+                {% for msg in messages %}
+                    <p class="text-success">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" action="/marks/add/">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Subject ID</th>
+                        <td>
+                            <input type="text" name="subject_id" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Student</th>
+                        <td>
+                            <select name="sid" id="sid" class="form-control">
+                                {% for student in students %}
+                                    <option value="{{ student.sid }}">{{ student.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Subject Name</th>
+                        <td>
+                            <input type="text" name="subject_name" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Marks</th>
+                        <td>
+                            <input type="number" name="marks" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
