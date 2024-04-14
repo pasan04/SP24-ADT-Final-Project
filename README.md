@@ -58,6 +58,17 @@ python manage.py migrate
 python manage.py makemigrations project --empty
 ```
 
+```
+https://pasanstudentmanagementsystem-60d660f9f26d.herokuapp.com/ | https://git.heroku.com/pasanstudentmanagementsystem.git
+```
+
+AWS Account 
+email - pkamburu1@gmail.com
+
+Hosted one 
+```
+http://3.144.82.146:8000/students/
+```
 
 
 
