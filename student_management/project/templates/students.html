@@ -10,17 +10,17 @@
     <a href="/students/add/" class="btn btn-success btn-sm">Add Students</a>
     <hr>
     <div class="container" style="margin-bottom: 10px;">
-    <form method="GET" action="{% url 'filter_students' %}">
-        <div class="row justify-content-end">
-            <div class="col-md-5">
-                <label>Search Students</label>
-                <div class="input-group">
-                    <input type="text" name="query" class="form-control" placeholder="Name, Email, or Grade" style="margin-right: 20px;"/>
-                    <button type="submit" class="btn btn-primary">Search</button>
+        <form method="GET" action="{% url 'filter_students' %}">
+            <div class="row justify-content-end">
+                <div class="col-md-5">
+                    <label>Search</label>
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Name, Email, or Grade" style="margin-right: 20px;"/>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
     <table class="table table-striped table-bordered">
         <thead  style="background-color: #007bff; color: white;">

@@ -9,6 +9,20 @@
     <h1>Teachers</h1>
     <a href="add/" class="btn btn-success btn-sm">Add Teachers</a>
     <hr>
+    <div class="container" style="margin-bottom: 10px;">
+        <form method="GET" action="{% url 'filter_teachers' %}">
+            <div class="row justify-content-end">
+                <div class="col-md-5">
+                    <label>Search</label>
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Name or Email" style="margin-right: 20px;"/>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <table class="table table-striped table-bordered">
         <thead  style="background-color: #007bff; color: white;">
             <tr>

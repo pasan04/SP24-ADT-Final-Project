@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Marks Graph</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Marks - Visualization</h1>
+    <p>Visualize the average marks for each subject<b>(according to subject name)</b>.</p>
+    <hr>
+    <div class="container">
+        <canvas id="marksChart" width="800" height="400"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{ subjects|json_script:"subjects" }}
+{{ marks|json_script:"marks" }}
+<script>
+    // Convert server-side arrays to JavaScript arrays
+    var subjects = JSON.parse(document.getElementById('subjects').textContent);
+    var marks = JSON.parse(document.getElementById('marks').textContent);
+
+    // Prepare data for Chart.js
+    var data = {
+        labels: subjects,
+        datasets: [{
+            label: 'Marks',
+            backgroundColor: 'skyblue',
+            data: marks
+        }]
+    };
+
+    // Configure chart options
+    var options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Marks'
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Subjects'
+                }
+            }]
+        }
+    };
+
+    // Create the chart
+    var ctx = document.getElementById('marksChart').getContext('2d');
+    var marksChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+</script>
+{% endblock %}

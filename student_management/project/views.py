@@ -1,11 +1,13 @@
 from django.db import IntegrityError
 from django.shortcuts import render,redirect,get_object_or_404
-from django.http import HttpResponse
+from django.db.models import Avg
 from project.models import Students,Teacher, Marks, CompositeKey
 from django.contrib import messages
 from django.db.models import Q
-
-#reffered - Create crud application with Django 3, Bootstrap 4 and SQLite - Part 1
+import matplotlib
+matplotlib.use('Agg')  # Use the Agg backend which doesn't require a GUI
+import matplotlib.pyplot as plt
+import io
 
 def students(request):
     all_students = Students.objects.all()
@@ -23,11 +25,44 @@ def add_student(request):
 
 def update_student(request, sid):
     student = Students.objects.get(sid=sid)
+    student = Students.objects.get(sid=sid)
     return render(request, 'updateStudent.html', {'student':student})
+
+
+def call_update_student_function(request, sid):
+    student = Students.objects.get(sid=sid)
+
+    name = request.POST['name']
+    email = request.POST['email']
+    age = request.POST['age']
+    grade = request.POST['grade']
+
+    student.name = name
+    student.email = email
+    student.age = age
+    student.grade = grade
+
+    student.save()
+    messages.success(request, 'Data has been updated successfully!')
+    return render(request, 'updateStudent.html', {'student': student})
 
 def update_teacher(request, tid):
     teacher = Teacher.objects.get(tid=tid)
     return render(request, 'updateTeacher.html', {'teacher':teacher})
+
+def call_update_teacher_function(request, tid):
+    teacher = Teacher.objects.get(tid=tid)
+
+    name = request.POST['name']
+    email = request.POST['email']
+
+    teacher.name = name
+    teacher.email = email
+
+    teacher.save()
+    messages.success(request, 'Data has been updated successfully!')
+    return render(request, 'updateTeacher.html', {'teacher': teacher})
+
 
 def delete_student(request, id):
     Students.objects.filter(sid=id).delete()
@@ -45,6 +80,20 @@ def filter_students(request):
 
     # Render the 'students.html' template with the filtered students
     return render(request, 'students.html', {'students': filtered_students})
+
+
+def filter_teachers(request):
+    # Get the single query parameter from the request
+    query = request.GET.get('query', '')
+
+    # Filter teachers based on the query parameter across name and email.
+    filtered_teachers = Teacher.objects.filter(
+        Q(name__icontains=query) | Q(email__icontains=query)
+    )
+
+    # Render the 'students.html' template with the filtered students
+    return render(request, 'teachers.html', {'teachers': filtered_teachers})
+
 
 
 def teachers(request):
@@ -66,7 +115,6 @@ def delete_teacher(request, id):
 def marks(request):
     all_marks = Marks.objects.select_related('composite_key__sid').all()
     return render(request, 'marks.html', {'marks': all_marks})
-
 
 def add_mark(request):
     all_students = Students.objects.all()
@@ -111,6 +159,22 @@ def add_mark(request):
     # Render the 'addMark.html' template if the request method is not POST
     return render(request, 'addMark.html', {'students': all_students})
 
+def get_update_mark(request, subject_id, sid):
+    all_students = Students.objects.all()
+
+    composite_key = get_object_or_404(CompositeKey, subject_id=subject_id, sid=sid)
+
+    # Retrieve the Marks instance using the composite key
+    mark = get_object_or_404(Marks, composite_key=composite_key)
+
+    context = {
+        'students': all_students,
+        'mark': mark,
+        'subject_id': subject_id,
+        'sid': sid
+    }
+
+    return render(request, 'updateMark.html', context)
 
 def update_mark(request, subject_id, sid):
     # Retrieve the CompositeKey instance
@@ -162,7 +226,36 @@ def delete_mark(request, subject_id, sid):
         # You may choose to log an error, show a custom error message, or simply redirect to the marks page
         return redirect('/marks')
 
+def filter_marks(request):
+    # Get the single query parameter from the request
+    query = request.GET.get('query', '')
 
+    # Filter marks based on the query parameter across subject name, subject ID, and marks (case-insensitive)
+    filtered_marks = Marks.objects.filter(
+        Q(subject_name__icontains=query) | Q(composite_key__subject_id__icontains=query) | Q(marks__icontains=query)
+    )
+
+    # Render the 'marks.html' template with the filtered marks
+    return render(request, 'marks.html', {'marks': filtered_marks})
+
+
+
+def plot_marks_bar_graph(request):
+    # Aggregate marks data from the database
+    marks_data = Marks.objects.values('subject_name').annotate(avg_marks=Avg('marks'))
+
+    # Extract subjects and average marks from aggregated data
+    subjects = [item['subject_name'] for item in marks_data]
+    avg_marks = [item['avg_marks'] for item in marks_data]
+
+    # Embed the graph data into the HTML template context
+    context = {
+        'subjects': subjects,
+        'marks': avg_marks
+    }
+
+    # Render the template with the context
+    return render(request, 'marks_graph.html', context)
 
 
 

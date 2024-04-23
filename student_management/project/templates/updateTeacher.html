@@ -16,7 +16,7 @@
                     <p class="text-success">{{msg}}</p>
                 {% endfor %}
             {% endif %}
-            <form method="post" action="{% url 'updateTeacher' teacher.tid %}">
+            <form method="post" action="/teachers/update-call/{{teacher.tid}}">
                 {% csrf_token %}
                 <table class="table table-bordered">
                     <tr>

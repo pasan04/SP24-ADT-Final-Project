@@ -17,30 +17,42 @@
                 {% endfor %}
             {% endif %}
 
-            <form method="post" action="/marks/add/">
+            <form method="post" action="/marks/update-call/{{subject_id}}/{{sid}}">
                 {% csrf_token %}
-                <table class="table table-bordered">
+                 <table class="table table-bordered">
                     <tr>
                         <th>Subject ID</th>
                         <td>
-                            <input type="text" name="subject_id" class="form-control" value="{{mark.subject_id}}"/>
+                            <input type="text" name="subject_id" class="form-control" value="{{subject_id}}" readonly/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Student</th>
+                        <td>
+                             <select name="sid" id="sid" class="form-control" disabled>
+                                {% for student in students %}
+                                    <option value="{{ student.sid }}" {% if student.sid == sid %} selected {% endif %}>
+                                        {{ student.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <th>Subject Name</th>
                         <td>
-                            <input type="text" name="subject_name" class="form-control" value="{{mark.subject_name}}"/>
+                            <input type="text" name="subject_name" class="form-control" value="{{mark.subject_name}}" readonly/>
                         </td>
                     </tr>
                     <tr>
                         <th>Marks</th>
                         <td>
-                            <input type="number" name="marks" class="form-control" value="{{mark.mark}}"/>
+                            <input type="number" name="marks" class="form-control" value="{{mark.marks}}"/>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </td>
                     </tr>
                 </table>
